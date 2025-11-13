@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_m_level_siswa_form" model="ir.ui.view">
+            <field name="name">m.level.siswa.form</field>
+            <field name="model">m.level.siswa</field>
+            <field name="arch" type="xml">
+                <form string="Tingkat Siswa">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="sequence"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_m_level_siswa_tree" model="ir.ui.view">
+            <field name="name">m.level.siswa.tree</field>
+            <field name="model">m.level.siswa</field>
+            <field name="arch" type="xml">
+                <tree string="Tingkat Siswa" editable="bottom">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_m_level_siswa" model="ir.actions.act_window">
+            <field name="name">Master Tingkat</field>
+            <field name="res_model">m.level.siswa</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</odoo>

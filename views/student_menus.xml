@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <menuitem 
+            id="menu_student_database_root"
+            name="Students"
+            sequence="10"
+            web_icon="student,static/description/icon.png"/>
+            <menuitem
+            id="menu_m_siswa"
+            name="Daftar Siswa"
+            parent="menu_student_database_root"
+            action="action_m_siswa"
+            sequence="10"/>
+
+        <menuitem
+            id="menu_student_config"
+            name="Konfigurasi"
+            parent="menu_student_database_root"
+            sequence="99"/>
+
+        <menuitem
+            id="menu_m_level_siswa"
+            name="Master Tingkat"
+            parent="menu_student_config"
+            action="action_m_level_siswa"
+            sequence="1"/>
+
+        <menuitem
+            id="menu_m_class_type"
+            name="Master Jenis Kelas"
+            parent="menu_student_config"
+            action="action_m_class_type"
+            sequence="2"/>
+
+    </data>
+</odoo>

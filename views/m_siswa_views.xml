@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_m_siswa_form" model="ir.ui.view">
+            <field name="name">m.siswa.form</field>
+            <field name="model">m.siswa</field>
+            <field name="arch" type="xml">
+                <form string="Profil Siswa">
+                    <sheet>
+                        <group>
+                            <group string="Data Siswa">
+                                <field name="name"/> <!-- New direct name field -->
+                                <field name="class_name"/>
+                                <field name="school_origin"/>
+                                <field name="status"/>
+                                <field name="join_date"/>
+                            </group>
+                            <group string="Data Akademik">
+                                <field name="level_id" options="{'no_create': True}"/>
+                                <field name="class_type_id" options="{'no_create': True}"/>
+                                <!-- Removed semester field -->
+                            </group>
+                            <group string="Data Wali / Orang Tua">
+                                <field name="parent_id"
+                                       context="{'default_is_company': False, 'default_company_type': 'person'}"
+                                       options="{'no_create_edit': False, 'no_open': False}"/>
+                                <field name="parent_contact"/>
+                            </group>
+                        </group>
+                        <group>
+                             <field name="notes" placeholder="Catatan tambahan..."/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_m_siswa_tree" model="ir.ui.view">
+            <field name="name">m.siswa.tree</field>
+            <field name="model">m.siswa</field>
+            <field name="arch" type="xml">
+                <tree string="Profil Siswa">
+                    <field name="name"/> <!-- New direct name field -->
+                    <field name="class_name"/>
+                    <field name="school_origin"/>
+                    <field name="level_id"/>
+                    <field name="class_type_id"/>
+                    <field name="parent_id"/>
+                    <field name="parent_contact"/>
+                    <field name="status"/>
+                    <field name="join_date"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_m_siswa_search" model="ir.ui.view">
+            <field name="name">m.siswa.search</field>
+            <field name="model">m.siswa</field>
+            <field name="arch" type="xml">
+                <search string="Cari Siswa">
+                    <field name="name" string="Nama Siswa"/>
+                    <field name="parent_id" string="Nama Orang Tua"/>
+                    <field name="school_origin"/>
+                    <field name="class_type_id"/>
+                    <field name="level_id"/>
+                    <separator/>
+                    <filter name="status_active" string="Siswa Aktif" domain="[('status', '=', 'active')]"/>
+                    <filter name="status_inactive" string="Siswa Tidak Aktif" domain="[('status', '=', 'inactive')]"/>
+                    <group expand="0" string="Group By">
+                        <filter name="group_by_level" string="Level" context="{'group_by': 'level_id'}"/>
+                        <filter name="group_by_class_type" string="Jenis Kelas" context="{'group_by': 'class_type_id'}"/>
+                        <filter name="group_by_status" string="Status" context="{'group_by': 'status'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_m_siswa" model="ir.actions.act_window">
+            <field name="name">Database Siswa</field>
+            <field name="res_model">m.siswa</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_m_siswa_search"/>
+            <field name="context">{'search_default_status_active': 1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Belum ada data siswa.
+                </p><p>
+                    Klik 'Create' untuk mendaftarkan siswa baru.
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>
