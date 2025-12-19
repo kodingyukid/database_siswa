@@ -32,13 +32,44 @@ class StudentProfile(models.Model):
         string='Jenis Kelas',
         tracking=True
     )
+
+    # --- Data untuk Penagihan Otomatis ---
+    skema_pembayaran = fields.Selection(
+        [
+            ('monthly', 'Bulanan (per 4 pertemuan)'),
+            ('semester', 'Semester (per 12 pertemuan)')
+        ],
+        string='Skema Pembayaran',
+        default='monthly',
+        required=True,
+        tracking=True
+    )
+
+    product_id = fields.Many2one(
+        'product.product',
+        string='Produk untuk Penagihan',
+        help="Pilih produk yang akan digunakan saat membuat invoice untuk siswa ini."
+    )
+
+    jumlah_pertemuan_hadir = fields.Integer(
+        string='Total Pertemuan Dihadiri',
+        default=0,
+        readonly=True,
+        copy=False # Tidak ikut dicopy saat record diduplikasi
+    )
+
+    jumlah_pertemuan_ditagih = fields.Integer(
+        string='Total Pertemuan Ditagih',
+        default=0,
+        readonly=True,
+        copy=False # Tidak ikut dicopy saat record diduplikasi
+    )
     
     # Relasi ke Orang Tua (res.partner) - now exclusively for parent
     parent_id = fields.Many2one(
         'res.partner', 
-        string='Nama Orang Tua',
-        domain=[('is_company', '=', False)],
-        help="Pilih kontak Orang Tua yang juga ada di modul Kontak."
+        string='Penanggung Jawab / Institusi',
+        help="Pilih kontak Penanggung Jawab (Orang Tua atau Institusi/Sekolah) yang ada di modul Kontak."
     )
     
     # Ambil nomor telepon dari Orang Tua secara otomatis
@@ -61,6 +92,28 @@ class StudentProfile(models.Model):
     )
     
     notes = fields.Text(string='Keterangan')
+
+    enrollment_ids = fields.One2many(
+        'siswa.kursus.enrollment',
+        'siswa_id',
+        string='Riwayat Kursus'
+    )
+
+    current_enrollment_id = fields.Many2one(
+        'siswa.kursus.enrollment',
+        string='Kursus Aktif Saat Ini',
+        compute='_compute_current_enrollment',
+        store=True
+    )
+
+    @api.depends('enrollment_ids.status')
+    def _compute_current_enrollment(self):
+        for student in self:
+            active_enrollments = student.enrollment_ids.filtered(lambda e: e.status == 'aktif')
+            if active_enrollments:
+                student.current_enrollment_id = active_enrollments[0]
+            else:
+                student.current_enrollment_id = False
 
     # --- SQL Constraints ---
     # No partner_id_uniq constraint as partner_id is now for parent and not unique per student profile

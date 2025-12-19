@@ -1,4 +1,5 @@
 id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
 access_student_profile_user,Access Student Profile,model_m_siswa,base.group_user,1,1,1,1
+access_student_enrollment_user,Access Student Enrollment,model_siswa_kursus_enrollment,base.group_user,1,1,1,1
 access_student_level_user,Access Student Level,model_m_level_siswa,base.group_user,1,1,1,1
 access_student_class_type_user,Access Student Class Type,model_m_class_type,base.group_user,1,1,1,1

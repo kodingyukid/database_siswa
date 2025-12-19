@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_siswa_kursus_enrollment_form" model="ir.ui.view">
+            <field name="name">siswa.kursus.enrollment.form</field>
+            <field name="model">siswa.kursus.enrollment</field>
+            <field name="arch" type="xml">
+                <form string="Pendaftaran Kursus">
+                    <header>
+                        <!-- Workflow buttons can be added here in the future -->
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" readonly="1"/>
+                                <field name="siswa_id"/>
+                                <field name="modul_id"/>
+                            </group>
+                            <group>
+                                <field name="status"/>
+                                <field name="tanggal_mulai"/>
+                                <field name="tanggal_selesai"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="jumlah_pertemuan_wajib"/>
+                            <field name="jumlah_pertemuan_diikuti"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_siswa_kursus_enrollment_tree" model="ir.ui.view">
+            <field name="name">siswa.kursus.enrollment.tree</field>
+            <field name="model">siswa.kursus.enrollment</field>
+            <field name="arch" type="xml">
+                <tree string="Pendaftaran Kursus" decoration-success="status=='lulus'" decoration-muted="status=='berhenti'" decoration-info="status=='aktif'">
+                    <field name="name"/>
+                    <field name="siswa_id"/>
+                    <field name="modul_id"/>
+                    <field name="status"/>
+                    <field name="tanggal_mulai"/>
+                    <field name="tanggal_selesai"/>
+                    <field name="jumlah_pertemuan_diikuti"/>
+                    <field name="jumlah_pertemuan_wajib"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_siswa_kursus_enrollment" model="ir.actions.act_window">
+            <field name="name">Pendaftaran Kursus</field>
+            <field name="res_model">siswa.kursus.enrollment</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</odoo>

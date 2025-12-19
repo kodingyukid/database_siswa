@@ -8,7 +8,7 @@
     'author': "PT KodingYuk Academy", # Anda bisa ganti dengan nama Anda
     'website': "https://www.kodingyuk.com", # Ganti jika perlu
     'category': 'Education',
-    'version': '17.0.1.0.0',
+    'version': '17.0.1.0.1',
     'depends': [
         'base',
         'mail',     # Untuk chatter (log & histori)
@@ -21,7 +21,9 @@
         # Views
         'views/m_level_siswa_views.xml',
         'views/m_class_type_views.xml',
+        'views/m_enrollment_views.xml',
         'views/m_siswa_views.xml',
+        'views/automation_cron.xml',
 
         # Menus
         'views/student_menus.xml',

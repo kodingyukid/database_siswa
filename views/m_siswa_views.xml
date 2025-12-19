@@ -19,18 +19,31 @@
                             <group string="Data Akademik">
                                 <field name="level_id" options="{'no_create': True}"/>
                                 <field name="class_type_id" options="{'no_create': True}"/>
+                                <field name="skema_pembayaran"/>
+                                <field name="product_id" domain="[('sale_ok', '=', True)]"/>
                                 <!-- Removed semester field -->
                             </group>
-                            <group string="Data Wali / Orang Tua">
-                                <field name="parent_id"
-                                       context="{'default_is_company': False, 'default_company_type': 'person'}"
-                                       options="{'no_create_edit': False, 'no_open': False}"/>
+                            <group string="Data Penanggung Jawab">
+                                <field name="parent_id"/>
                                 <field name="parent_contact"/>
                             </group>
                         </group>
-                        <group>
-                             <field name="notes" placeholder="Catatan tambahan..."/>
-                        </group>
+                        <notebook>
+                            <page string="Riwayat Kursus">
+                                <field name="enrollment_ids" readonly="1">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="modul_id"/>
+                                        <field name="status"/>
+                                        <field name="tanggal_mulai"/>
+                                        <field name="tanggal_selesai"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Catatan">
+                                 <field name="notes" placeholder="Catatan tambahan..."/>
+                            </page>
+                        </notebook>
                     </sheet>
                     <div class="oe_chatter">
                         <field name="message_follower_ids"/>
