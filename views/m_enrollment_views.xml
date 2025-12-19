@@ -8,7 +8,14 @@
             <field name="arch" type="xml">
                 <form string="Pendaftaran Kursus">
                     <header>
-                        <!-- Workflow buttons can be added here in the future -->
+                        <button name="action_create_or_view_certificate_assessment" 
+                                type="object" 
+                                string="Penilaian Sertifikat"
+                                class="oe_highlight"
+                                invisible="status != 'aktif'"
+                                help="Klik untuk membuat atau melihat penilaian sertifikat."
+                        />
+                        <field name="status" widget="statusbar" statusbar_visible="aktif,lulus,berhenti"/>
                     </header>
                     <sheet>
                         <group>
@@ -25,8 +32,20 @@
                         </group>
                         <group>
                             <field name="jumlah_pertemuan_wajib"/>
-                            <field name="jumlah_pertemuan_diikuti"/>
                         </group>
+                        <notebook>
+                            <page string="Hasil Penilaian" invisible="status != 'lulus'">
+                                <group>
+                                    <field name="average_score" readonly="1"/>
+                                </group>
+                                <field name="assessment_line_ids" readonly="1">
+                                    <tree>
+                                        <field name="penilaian_item_id" readonly="1"/>
+                                        <field name="score" readonly="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
                     </sheet>
                 </form>
             </field>
@@ -43,7 +62,6 @@
                     <field name="status"/>
                     <field name="tanggal_mulai"/>
                     <field name="tanggal_selesai"/>
-                    <field name="jumlah_pertemuan_diikuti"/>
                     <field name="jumlah_pertemuan_wajib"/>
                 </tree>
             </field>

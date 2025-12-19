@@ -4,3 +4,4 @@ from . import m_class_type
 from . import m_enrollment
 from . import m_siswa
 from . import m_invoice_automation
+from . import m_penilaian_sertifikat
